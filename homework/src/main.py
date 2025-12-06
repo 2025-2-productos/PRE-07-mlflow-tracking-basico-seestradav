@@ -1,5 +1,6 @@
 # Se importa MLflow y uuid
 import uuid
+from pathlib import Path 
 
 import mlflow
 
@@ -25,6 +26,9 @@ def main():
         test_size=TEST_SIZE,
         random_state=RANDOM_STATE,
     )
+
+    mlruns_path = Path("mlruns").absolute()
+    mlflow.set_tracking_uri(f"file:{mlruns_path}") 
 
     ## Se inicia un experimento en MLflow
     mlflow.set_experiment("wine_quality_experiment")
