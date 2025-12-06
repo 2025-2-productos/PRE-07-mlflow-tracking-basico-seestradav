@@ -1,10 +1,8 @@
 """Prediccion script for the MLflow model.
 
-This script loads a model from MLflow and makes predictions on a dataset.
+This script loads a trained model from MLflow and makes predictions on new data.
 
-$ python3 make_predictions.py
-
-
+$ python make_predictions.py
 """
 
 import mlflow
@@ -12,16 +10,15 @@ import pandas as pd
 
 FILE_PATH = "data/winequality-red.csv"
 
-
 df = pd.read_csv(FILE_PATH)
 y = df["quality"]
-x = df.drop(columns=["quality"])
+X = df.drop(columns=["quality"])
 
-## Debe verificarse el run_id del modelo que se quiere cargar
-## Se puede obtener el run_id desde la interfaz de MLflow
+## debe verificarse el run_id del modelo que se quiere cargar
+## se pude obtener el run_id desde la UI de MLflow
 
-logged_model = "runs:/9ca786ced46e4d3786b1f70fd59bcdef/model"
+logged_model = "runs:/ebe1519ada4d4df299276cc52591c309/model"
 loaded_model = mlflow.pyfunc.load_model(logged_model)
-y = loaded_model.predict(x)
+y = loaded_model.predict(X)
 
 print(y)
